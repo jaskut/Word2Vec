@@ -49,6 +49,9 @@ def generate_training_data(sequences, window_size, num_ns, vocab_size, seed):
 
 # Now, create a custom standardization function to lowercase the text and
 # remove punctuation.
+remove = ' °–†→„“…'
 def custom_standardization(input_data):
   lowercase = tf.strings.lower(input_data)
-  return tf.strings.regex_replace(lowercase, '[%s]' % re.escape(string.punctuation), '')
+  lowercase = tf.strings.regex_replace(lowercase, '[%s]' % re.escape(string.punctuation+string.digits+remove), '')
+  print(tf.strings.regex_replace(lowercase, ' . ', ''))
+  return tf.strings.regex_replace(lowercase, ' . ', '')
